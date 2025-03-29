@@ -1,0 +1,43 @@
+.header {
+	height: 15%;
+	background: #fafafa;
+	padding: 0 24px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.leftSection {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.title {
+	font-size: 20px;
+	font-weight: 500;
+}
+
+.rightSection {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.icon {
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+}
+
+@media (min-width: 768px) {
+	.title {
+		font-size: 24px;
+	}
+}
+
+@media (max-width: 768px) {
+	.header {
+		height: 10%;
+	}
+}
