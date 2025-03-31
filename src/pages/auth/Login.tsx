@@ -4,7 +4,7 @@ import styles from "./Login.module.css";
 
 const Login = () => {
 	return (
-		<div className={styles.container}>
+		<div className={styles.container} data-testid="login-container">
 			<div className={styles.left}>
 				<img src={MobileIcon} alt="icon" />
 			</div>
