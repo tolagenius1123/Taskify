@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "id": "825a",
+      "title": "watch a movie",
+      "description": "going for a dinner date with my girlfriend",
+      "date": "2025-03-31",
+      "dueDate": "2025-04-04",
+      "status": "Pending"
+    },
+    {
+      "id": "e0d5",
+      "title": "learn react native",
+      "description": "get better at mobile development",
+      "date": "2025-03-31",
+      "dueDate": "2025-04-04",
+      "status": "In Progress"
+    },
+    {
+      "id": "fbe0",
+      "title": "workout",
+      "description": "go to iFitness",
+      "date": "2025-03-31",
+      "dueDate": "2025-04-30",
+      "status": "Completed"
+    }
+  ]
+}

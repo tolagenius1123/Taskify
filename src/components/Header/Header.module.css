@@ -13,10 +13,10 @@
 	gap: 20px;
 }
 
-.title {
-	font-size: 20px;
+/* .title {
+	font-size: 8px; 
 	font-weight: 500;
-}
+} */
 
 .rightSection {
 	display: flex;

@@ -5,5 +5,6 @@ export type Task = {
 	title: string;
 	description: string;
 	date: string;
+	dueDate: string;
 	status: TaskStatus;
 };

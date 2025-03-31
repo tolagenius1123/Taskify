@@ -4,10 +4,24 @@ import { RootState } from "../../../redux/store/store";
 import { TailSpin } from "react-loader-spinner";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import { startLoading, stopLoading } from "../../../redux/slices/loadingSlice";
-import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import sidebarRoutes from "../../../routes/SidebarRoutes";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { login } from "../../../redux/slices/authSlice";
+
+const loginSchema = yup.object().shape({
+	email: yup
+		.string()
+		.email("Invalid email format")
+		.required("Email is required"),
+	password: yup
+		.string()
+		.min(6, "Password must be at least 6 characters")
+		.required("Password is required"),
+});
 
 const LoginForm = () => {
 	const dispatch = useDispatch();
@@ -17,20 +31,25 @@ const LoginForm = () => {
 		(state: RootState) => state.loading.isLoading
 	);
 
-	const [loginDetails, setLoginDetails] = useState({
-		email: "",
-		password: "",
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		watch,
+	} = useForm({
+		resolver: yupResolver(loginSchema),
 	});
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		setLoginDetails((prev) => ({ ...prev, [name]: [value] }));
-		console.log(loginDetails);
-	};
+	const watchAllFields = watch();
 
-	const handleSubmit = (e: FormEvent) => {
-		e.preventDefault();
+	const isButtonDisabled =
+		!watchAllFields.email ||
+		!watchAllFields.password ||
+		Object.keys(errors).length > 0;
+
+	const onSubmit = (data: { email: string; password: string }) => {
 		dispatch(startLoading());
+		dispatch(login({ email: data.email }));
 
 		setTimeout(() => {
 			dispatch(stopLoading());
@@ -40,7 +59,7 @@ const LoginForm = () => {
 	};
 
 	return (
-		<form className={styles.form} onSubmit={handleSubmit}>
+		<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.logo}>
 				<h1>Taskify</h1>
 				<h3>Login to your account</h3>
@@ -48,24 +67,26 @@ const LoginForm = () => {
 			<div className={styles.inputContainer}>
 				<label htmlFor="email">Email</label>
 				<input
-					name="email"
+					{...register("email")}
 					type="email"
 					placeholder="Enter a valid email"
-					value={loginDetails.email}
-					onChange={handleChange}
+					className={errors.email ? styles.inputError : ""}
 				/>
-				<p className={styles.error}>Email is required</p>
+				{errors.email && (
+					<p className={styles.error}>{errors.email.message}</p>
+				)}
 			</div>
 			<div className={styles.inputContainer}>
 				<label htmlFor="password">Password</label>
 				<input
-					name="password"
+					{...register("password")}
 					type="password"
 					placeholder="Enter your password"
-					value={loginDetails.password}
-					onChange={handleChange}
+					className={errors.password ? styles.inputError : ""}
 				/>
-				<p className={styles.error}>password is required</p>
+				{errors.password && (
+					<p className={styles.error}>{errors.password.message}</p>
+				)}
 			</div>
 			<div className={styles.forgotPassword}>
 				<a href="/">Forgot password?</a>
@@ -87,11 +108,9 @@ const LoginForm = () => {
 						"Login"
 					)
 				}
-				btnStyles={styles.btn}
-				// btnStyles={cn(
-				// 	"bg-customBlue flex items-center justify-around text-sm md:text-lg text-white rounded-lg cursor-pointer h-[40px] w-full mt-5",
-				// 	isButtonDisabled && "opacity-25"
-				// )}
+				btnStyles={`${
+					isButtonDisabled ? styles.btnDisabled : styles.btn
+				}`}
 				btnType="submit"
 			/>
 		</form>

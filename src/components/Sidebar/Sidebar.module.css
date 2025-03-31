@@ -8,7 +8,7 @@
 .container {
 	display: flex;
 	flex-direction: column;
-	/* justify-content: space-between; */
+	justify-content: space-between;
 	height: 100vh;
 }
 
@@ -28,33 +28,24 @@
 	gap: 8px;
 }
 
-.userInfo {
-	padding: 12px 16px;
-	border-top: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
-	margin-bottom: 20px;
+.btn {
+	background: red;
+	color: white;
+	font-weight: 500;
+	width: 100%;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	font-size: 16px;
+	display: flex;
+	justify-content: space-around;
+	padding: 10px 20px;
 }
 
-.userDetails {
+.btnContent {
 	display: flex;
 	align-items: center;
-	gap: 8px;
-}
-
-.userIcon {
-	width: 32px;
-	height: 32px;
-}
-
-.userEmail {
-	font-size: 14px;
-	font-weight: 500;
-	color: black;
-}
-
-.userRole {
-	font-size: 12px;
-	color: #9b9697;
+	gap: 10px;
 }
 
 /* Sidebar Link */
@@ -190,6 +181,50 @@
 
 .mobileSidebar.open + .overlay {
 	display: block;
+}
+
+.logoutTitle {
+	font-size: 1.2rem;
+	font-weight: 600;
+	text-align: center;
+	margin-bottom: 1rem;
+	color: #333;
+}
+
+.modalActions {
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.logBtn {
+	padding: 0.7rem 1.5rem;
+	font-size: 1rem;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background 0.3s ease;
+	min-width: 100px;
+}
+
+.logBtn:first-child {
+	background: red;
+	color: white;
+	border: none;
+}
+
+.logBtn:first-child:hover {
+	background: #c82333;
+}
+
+.logBtn:last-child {
+	background: #5271ff;
+	color: white;
+	outline: none;
+	border: none;
+}
+
+.logBtn:last-child:hover {
+	background: #4866ee;
 }
 
 @media screen and (max-width: 768px) {

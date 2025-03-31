@@ -13,6 +13,9 @@ import {
 	UsersIcon,
 	NotificationsIcon,
 } from "../../assets/icons";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store/store";
+import { CircleUserRound } from "lucide-react";
 
 const Header = () => {
 	const routes = [
@@ -48,11 +51,24 @@ const Header = () => {
 		},
 	];
 
+	const user = useSelector((state: RootState) => state.auth.user);
+
 	return (
 		<div className={styles.header}>
 			<div className={styles.leftSection}>
 				<MobileSidebar routes={routes} />
-				<h1 className={styles.title}>Overview</h1>
+				<div
+					style={{
+						display: "flex",
+						alignItems: "center",
+						gap: "5px",
+					}}
+				>
+					<CircleUserRound />
+					<p style={{ fontSize: "14px", fontWeight: "500" }}>
+						{user?.email}
+					</p>
+				</div>
 			</div>
 			<div className={styles.rightSection}>
 				<img
